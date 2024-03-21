@@ -2,15 +2,17 @@
 LiquidContainer waterContainer1 = new LiquidContainer(10,50,45,50,true);
 LiquidContainer waterContainer2 = new LiquidContainer(15,60,55,70,false);
 
-GasContainer heliumContainer = new GasContainer();
+GasContainer heliumContainer = new GasContainer(10,50,45,50,3000);
 CoolingContainer bananaContainer = new CoolingContainer();
 
 waterContainer1.addCargo(30);
-waterContainer2.addCargo(30);
+waterContainer2.addCargo(40);
 
+heliumContainer.addCargo(20);
 
-Console.WriteLine(waterContainer1.getInfo());
-Console.WriteLine(waterContainer2.getInfo());
+waterContainer1.getInfo();
+waterContainer2.getInfo();
+heliumContainer.getInfo();
 
 waterContainer2.removeCargo();
 
@@ -38,11 +40,11 @@ public class DefaultContainer
         cargoMass = 0;
     }
 
-    public String getInfo()
+    public void getInfo()
     {
-        return "container mass: " + mass + "\ncontainer height: " + height + "\ncontainer depth: " + depth +
-               "\ncontainer serial number: " + serialNumber + "\ncontainer max capacity: " + maxCapacity +
-               "\ncargo mass: " + cargoMass + "\n";
+        Console.WriteLine("container mass: " + mass + "\ncontainer height: " + height + "\ncontainer depth: " + depth +
+                          "\ncontainer serial number: " + serialNumber + "\ncontainer max capacity: " + maxCapacity +
+                          "\ncargo mass: " + cargoMass);
     }
     
     
@@ -88,6 +90,17 @@ public class LiquidContainer : DefaultContainer, IHazardNotifier
         }
         
     }
+    public void removeCargo()
+    {
+        cargoMass = cargoMass*0.05f;
+    }
+    
+    public void getInfo()
+    {
+        Console.WriteLine("container mass: " + mass + "\ncontainer height: " + height + "\ncontainer depth: " + depth +
+                          "\ncontainer serial number: " + serialNumber + "\ncontainer max capacity: " + maxCapacity +
+                          "\ncargo mass: " + cargoMass + "\nhazardous: " + hazardous);
+    }
     
     public void notify()
     {
@@ -98,10 +111,30 @@ public class LiquidContainer : DefaultContainer, IHazardNotifier
 public class GasContainer : DefaultContainer, IHazardNotifier
 {
     private static int serialCounter = 1;
+    private float pressure;
+    
+    public GasContainer(float mass, float height, float depth, float maxCapacity, float pressure)
+    {
+        this.mass = mass;
+        this.height = height;
+        this.depth = depth;
+        this.maxCapacity = maxCapacity;
+        this.pressure = pressure;
+
+        this.serialNumber = "KON-G-" + serialCounter;
+        serialCounter++;
+    }
     
     public void notify()
     {
         Console.WriteLine("Proba niebezpiecznej operacji na kontenerze " + serialNumber);
+    }
+    
+    public void getInfo()
+    {
+        Console.WriteLine("container mass: " + mass + "\ncontainer height: " + height + "\ncontainer depth: " + depth +
+                          "\ncontainer serial number: " + serialNumber + "\ncontainer max capacity: " + maxCapacity + "\ncontainer pressure: " + pressure +
+                          "\ncargo mass: " + cargoMass);
     }
 }
 
