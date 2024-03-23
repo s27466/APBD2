@@ -1,11 +1,11 @@
 ﻿public abstract class DefaultContainer
 {
-    protected float cargoMass;
-    protected float mass;
-    protected float height;
-    protected float depth;
+    protected float cargoMass; //kg
+    protected float mass; //kg
+    protected float height; //cm
+    protected float depth; //cm
     protected string serialNumber;
-    protected float maxCapacity;
+    protected float maxCapacity; //kg
     
     public void addCargo(float m)
     {
@@ -28,6 +28,19 @@
                           "\ncontainer serial number: " + serialNumber + "\ncontainer max capacity: " + maxCapacity +
                           "\ncargo mass: " + cargoMass);
     }
-    
-    
+
+    public string getSerial()
+    {
+        return serialNumber;
+    }
+
+    public float getCargoMass()
+    {
+        return cargoMass;
+    }
+
+    public float getMass()
+    {
+        return mass;
+    }
 }

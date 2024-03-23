@@ -1,7 +1,7 @@
 ﻿public class GasContainer : DefaultContainer, IHazardNotifier
 {
     private static int serialCounter = 1;
-    private float pressure;
+    private float pressure; //atmospheres
     
     public GasContainer(float mass, float height, float depth, float maxCapacity, float pressure)
     {
